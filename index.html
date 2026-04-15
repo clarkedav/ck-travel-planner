@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CK Travel Planner</title>
+
+  <!-- Open Graph / SEO -->
+  <meta name="description" content="Discover attractions, restaurants, and hidden gems at any destination with CK Travel Planner." />
+  <meta property="og:title" content="CK Travel Planner" />
+  <meta property="og:description" content="Your curated travel companion. Search destinations and build itineraries with ease." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/og-image.png" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400&display=swap" rel="stylesheet" />
+
+  <!-- Styles -->
+  <link rel="stylesheet" href="styles/variables.css" />
+  <link rel="stylesheet" href="styles/reset.css" />
+  <link rel="stylesheet" href="styles/typography.css" />
+  <link rel="stylesheet" href="styles/layout.css" />
+  <link rel="stylesheet" href="styles/components.css" />
+  <link rel="stylesheet" href="styles/animations.css" />
+  <link rel="stylesheet" href="styles/responsive.css" />
+</head>
+<body>
+
+  <!-- ═══════════════ NAVBAR ═══════════════ -->
+  <header class="navbar" role="banner">
+    <div class="navbar__inner">
+      <a class="navbar__logo" href="/" aria-label="CK Travel Planner Home">
+        <span class="navbar__logo-icon" aria-hidden="true">✈</span>
+        <span class="navbar__logo-text">CK <em>Travel</em></span>
+      </a>
+
+      <div class="navbar__search" role="search">
+        <label for="search-input" class="sr-only">Search destination</label>
+        <input
+          id="search-input"
+          class="search-input"
+          type="search"
+          placeholder="Where are you going?"
+          autocomplete="off"
+          aria-label="Search for a destination"
+          aria-expanded="false"
+          aria-haspopup="listbox"
+          aria-controls="search-suggestions"
+        />
+        <span class="search-input__icon" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </span>
+        <ul id="search-suggestions" class="search-suggestions" role="listbox" aria-label="Destination suggestions" hidden></ul>
+      </div>
+
+      <nav class="navbar__actions" aria-label="Primary navigation">
+        <button class="btn-icon" id="itinerary-toggle-btn" aria-label="Open itinerary panel" aria-expanded="false" aria-controls="itinerary-drawer">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          <span class="btn-icon__label">Itinerary</span>
+          <span class="itinerary-badge" id="itinerary-badge" aria-live="polite" hidden>0</span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ═══════════════ MAIN ═══════════════ -->
+  <main id="main-content" role="main">
+
+    <!-- HERO (visible before search) -->
+    <section class="hero" id="hero-section" aria-label="Welcome hero">
+      <div class="hero__backdrop" aria-hidden="true"></div>
+      <div class="hero__content">
+        <p class="hero__eyebrow">Your curated travel companion</p>
+        <h1 class="hero__title">Discover the world,<br /><em>one city at a time.</em></h1>
+        <p class="hero__subtitle">Search any destination to explore attractions, cuisine, culture, and hidden gems — all in one place.</p>
+        <div class="hero__prompt" aria-hidden="true">
+          <span>Try:</span>
+          <button class="hero__suggestion" data-query="Lagos, Nigeria">Lagos</button>
+          <button class="hero__suggestion" data-query="Paris, France">Paris</button>
+          <button class="hero__suggestion" data-query="Tokyo, Japan">Tokyo</button>
+          <button class="hero__suggestion" data-query="Nairobi, Kenya">Nairobi</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- DESTINATION HEADER (visible after search) -->
+    <section class="destination-header" id="destination-header" hidden aria-live="polite">
+      <div class="destination-header__inner">
+        <div class="destination-header__text">
+          <p class="destination-header__eyebrow">Exploring</p>
+          <h1 class="destination-header__title" id="destination-title">–</h1>
+        </div>
+        <p class="destination-header__count" id="results-count" aria-live="polite"></p>
+      </div>
+    </section>
+
+    <!-- FILTERS -->
+    <section class="filters-section" id="filters-section" hidden aria-label="Category filters">
+      <div class="filters-section__inner">
+        <div class="filter-chips" role="group" aria-label="Filter by category" id="filter-chips">
+          <button class="chip chip--active" data-category="all" aria-pressed="true">All</button>
+          <button class="chip" data-category="catering" aria-pressed="false">🍽 Food &amp; Dining</button>
+          <button class="chip" data-category="tourism" aria-pressed="false">🏛 Culture &amp; History</button>
+          <button class="chip" data-category="leisure" aria-pressed="false">🌿 Outdoor &amp; Leisure</button>
+          <button class="chip" data-category="entertainment" aria-pressed="false">🎭 Entertainment</button>
+          <button class="chip" data-category="commercial" aria-pressed="false">🛍 Shopping</button>
+          <button class="chip" data-category="accommodation" aria-pressed="false">🏨 Hotels</button>
+        </div>
+
+        <div class="view-toggle" role="group" aria-label="View mode">
+          <button class="view-btn view-btn--active" id="grid-view-btn" aria-pressed="true" aria-label="Grid view">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/></svg>
+            Grid
+          </button>
+          <button class="view-btn" id="map-view-btn" aria-pressed="false" aria-label="Map view">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="1 6 1 22 8 18 16 22 23 18 23 2 16 6 8 2 1 6"/><line x1="8" y1="2" x2="8" y2="18"/><line x1="16" y1="6" x2="16" y2="22"/></svg>
+            Map
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARD GRID -->
+    <section class="results-section" id="results-section" aria-label="Search results" aria-live="polite" aria-busy="false">
+      <div class="card-grid" id="card-grid" role="list"></div>
+    </section>
+
+    <!-- MAP VIEW -->
+    <section class="map-section" id="map-section" hidden aria-label="Map view">
+      <div class="map-wrapper">
+        <iframe
+          id="map-iframe"
+          class="map-iframe"
+          title="Destination map"
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          src="about:blank"
+          aria-label="Interactive map of search results"
+        ></iframe>
+        <div class="map-overlay" id="map-overlay">
+          <p class="map-overlay__text">Search a destination to see it on the map</p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═══════════════ DETAIL MODAL ═══════════════ -->
+  <div class="modal-backdrop" id="modal-backdrop" role="dialog" aria-modal="true" aria-label="Place details" hidden>
+    <div class="modal" id="modal-panel" tabindex="-1">
+      <button class="modal__close" id="modal-close-btn" aria-label="Close details">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="modal__photo-wrap" id="modal-photo-wrap">
+        <img id="modal-photo" class="modal__photo" src="" alt="" />
+      </div>
+      <div class="modal__body">
+        <div class="modal__meta">
+          <span class="modal__category" id="modal-category"></span>
+          <span class="modal__rating" id="modal-rating"></span>
+        </div>
+        <h2 class="modal__title" id="modal-title"></h2>
+        <p class="modal__address" id="modal-address"></p>
+
+        <div class="modal__details" id="modal-details">
+          <div class="modal__detail-row" id="modal-hours-row" hidden>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+            <span id="modal-hours"></span>
+          </div>
+          <div class="modal__detail-row" id="modal-phone-row" hidden>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13 19.79 19.79 0 0 1 1.61 4.44 2 2 0 0 1 3.6 2.24h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.09 6.09l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+            <a id="modal-phone" href=""></a>
+          </div>
+          <div class="modal__detail-row" id="modal-website-row" hidden>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+            <a id="modal-website" href="" target="_blank" rel="noopener noreferrer">Visit Website</a>
+          </div>
+          <div class="modal__detail-row" id="modal-maps-row">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+            <a id="modal-maps-link" href="" target="_blank" rel="noopener noreferrer">Open in Google Maps</a>
+          </div>
+        </div>
+
+        <div class="modal__actions">
+          <button class="btn btn--primary" id="modal-save-btn" aria-pressed="false">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+            Save to Itinerary
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ ITINERARY DRAWER ═══════════════ -->
+  <aside class="itinerary-drawer" id="itinerary-drawer" aria-label="Your itinerary" aria-hidden="true" hidden>
+    <div class="itinerary-drawer__header">
+      <h2 class="itinerary-drawer__title">My Itinerary</h2>
+      <button class="btn-icon" id="itinerary-close-btn" aria-label="Close itinerary panel">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="itinerary-drawer__body">
+      <ul class="itinerary-list" id="itinerary-list" role="list" aria-label="Saved places" aria-live="polite"></ul>
+      <div class="itinerary-empty" id="itinerary-empty">
+        <span class="itinerary-empty__icon" aria-hidden="true">🗺</span>
+        <p>No places saved yet.<br/>Bookmark places to build your itinerary.</p>
+      </div>
+    </div>
+    <div class="itinerary-drawer__footer">
+      <button class="btn btn--ghost" id="clear-itinerary-btn" aria-label="Clear all saved places">Clear All</button>
+    </div>
+  </aside>
+  <div class="drawer-overlay" id="drawer-overlay" hidden aria-hidden="true"></div>
+
+  <!-- ═══════════════ TOAST ═══════════════ -->
+  <div class="toast-container" id="toast-container" aria-live="polite" aria-atomic="true"></div>
+
+  <!-- ═══════════════ SCRIPTS ═══════════════ -->
+  <script type="module" src="main.js"></script>
+</body>
+</html>

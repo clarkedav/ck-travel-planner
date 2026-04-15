@@ -1,0 +1,39 @@
+/* ═══════════════════════════════════════════
+   CK TRAVEL PLANNER — TYPOGRAPHY
+   ═══════════════════════════════════════════ */
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  font-weight: var(--weight-semibold);
+  line-height: var(--leading-tight);
+  letter-spacing: var(--tracking-tight);
+  color: var(--color-text-primary);
+}
+
+h1 { font-size: var(--text-4xl); }
+h2 { font-size: var(--text-3xl); }
+h3 { font-size: var(--text-2xl); }
+h4 { font-size: var(--text-xl); }
+
+p {
+  line-height: var(--leading-normal);
+  color: var(--color-text-secondary);
+}
+
+em {
+  font-style: italic;
+  color: var(--color-teal-500);
+}
+
+strong {
+  font-weight: var(--weight-semibold);
+}
+
+/* Code / mono */
+code, pre {
+  font-family: var(--font-mono);
+  font-size: var(--text-sm);
+  background: var(--color-slate-100);
+  border-radius: var(--radius-sm);
+  padding: 2px 6px;
+}

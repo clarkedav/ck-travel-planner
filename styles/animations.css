@@ -1,0 +1,125 @@
+/* ═══════════════════════════════════════════
+   CK TRAVEL PLANNER — ANIMATIONS
+   ═══════════════════════════════════════════ */
+
+/* ── Keyframes ── */
+@keyframes shimmer {
+  0%   { background-position: 200% 0; }
+  100% { background-position: -200% 0; }
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-4px); }
+}
+
+@keyframes fadeSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.92);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes chipBounce {
+  0%   { transform: scale(1); }
+  40%  { transform: scale(1.15); }
+  70%  { transform: scale(0.95); }
+  100% { transform: scale(1); }
+}
+
+@keyframes toastIn {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes toastOut {
+  from {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+}
+
+@keyframes heroTextReveal {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ── Animation Classes ── */
+
+/* Staggered card entrance */
+.place-card {
+  animation: fadeSlideUp var(--transition-slow) both;
+}
+
+.place-card:nth-child(1)  { animation-delay: 0.05s; }
+.place-card:nth-child(2)  { animation-delay: 0.10s; }
+.place-card:nth-child(3)  { animation-delay: 0.15s; }
+.place-card:nth-child(4)  { animation-delay: 0.20s; }
+.place-card:nth-child(5)  { animation-delay: 0.25s; }
+.place-card:nth-child(6)  { animation-delay: 0.30s; }
+.place-card:nth-child(7)  { animation-delay: 0.35s; }
+.place-card:nth-child(8)  { animation-delay: 0.40s; }
+.place-card:nth-child(9)  { animation-delay: 0.45s; }
+.place-card:nth-child(10) { animation-delay: 0.50s; }
+.place-card:nth-child(n+11) { animation-delay: 0.55s; }
+
+/* Modal scale-in */
+.modal-backdrop:not([hidden]) {
+  animation: fadeIn var(--transition-base) both;
+}
+
+.modal-backdrop:not([hidden]) .modal {
+  animation: scaleIn var(--transition-spring) both;
+}
+
+/* Hero text reveal */
+.hero__eyebrow  { animation: heroTextReveal 0.7s 0.1s both; }
+.hero__title    { animation: heroTextReveal 0.7s 0.25s both; }
+.hero__subtitle { animation: heroTextReveal 0.7s 0.40s both; }
+.hero__prompt   { animation: heroTextReveal 0.7s 0.55s both; }
+
+/* Filter chip activation bounce */
+.chip.chip--active {
+  animation: chipBounce 0.35s ease;
+}
+
+/* Destination header reveal */
+.destination-header:not([hidden]) {
+  animation: fadeSlideUp var(--transition-slow) both;
+}
