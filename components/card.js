@@ -4,7 +4,7 @@
  * Emits custom events for card click and save toggle.
  */
 
-import { truncateText, buildStarRating, formatCategory } from '../utils/helpers.js';
+import { truncateText, buildStarRating, formatCategory, mapCategory } from '../utils/helpers.js';
 import { formatCategory as apiFormatCategory } from '../api/places.js';
 import { mapCategory as apiFormatCategory } from '../api/places.js';
 
