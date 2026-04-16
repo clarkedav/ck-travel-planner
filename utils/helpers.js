@@ -18,6 +18,10 @@ export function debounce(fn, delay) {
   };
 }
 
+export function formatCategory(category) {
+    return category ? category.replace(/_/g, ' ') : 'Place';
+}
+
 /**
  * Truncate text to a maximum character count, appending an ellipsis.
  * @param {string} text

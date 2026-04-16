@@ -6,6 +6,7 @@
 
 import { truncateText, buildStarRating, formatCategory } from '../utils/helpers.js';
 import { formatCategory as apiFormatCategory } from '../api/places.js';
+import { mapCategory as apiFormatCategory } from '../api/places.js';
 
 /**
  * Create a place card element.
